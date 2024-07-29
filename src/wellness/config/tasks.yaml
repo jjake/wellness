@@ -1,0 +1,163 @@
+#
+# S T R E N G T H   T R A I N I N G
+# ==============================================================================
+
+strength_focus_area_task:
+  description: >
+    Given {workouts_yesterday} were worked out yesterday and are probably fatigued,
+    general goals {general_goals} and a motivation
+    level {motivation_level}, muscle fatigue from yesterday's workouts focused on
+    {workouts_yesterday} pick one or more focus areas of the body for a 
+    workout. Select muscle groups not fatigued by recent workouts.
+    Furthermore, determine whether a workout should emphasize strength (lower reps
+    higher weight) or endurance (higher reps lower weight).  Consult the client's
+    journal as well as their data on current 80% exertion weights.
+  expected_output: >
+    A list of body areas for workout focus, and whether the workout should be focused 
+    on strength or endurance.
+
+strength_exercise_research_task:
+  description: >
+    Research strength training exercises for {general_goals} given a motivational level
+    {motivation_level}, fatigue from {workouts_yesterday} as well as 
+    {aches_and_pains}.  Pay attention to {physical_issues}.
+  expected_output: >
+    A list of strength training exercises consisting of the name of the exercise,
+    the muscle groups exercised, equipment needed for the exercise and a link to  
+    a video showing the exercise performed with proper form.
+
+
+strength_routine_task:
+  description: >
+    Given a motivation_level {motivation_level}, yesterdays workout of {workouts_yesterday},
+    the general client goals of {general_goals}, focus area of the body for workout as well
+    as whether the workout should be focused on endurance or strength, generate a workout routine
+    for time and location {time_blocks_with_location}.
+  expected_output: >   
+    Return JSON including:
+     
+    - Workout time and location
+    - Workout duration
+    - Workout time block
+    - Areas of the body to focus on,
+    - A theme (one of strength or endurance),
+    - A list of at least 10 exercises in pretty-printed JSON format taking up the entire time slot. Each exercise should
+    have:
+      - exercise name
+      - weight
+      - reps
+      - sets
+      - equipment needed
+      - muscle groups activated by the exercise
+      - description of how to do the exercise
+      - links to videos of the exercise done in proper form. Ensure that the video actually exists and can be viewed.
+    
+    - thoughts about specific things to focus on for strength and form
+    relevant to this particular workout. 
+    
+    Return well formatted and pretty printed JSON in exactly the format requested. 
+
+#
+# C A R D I O   T R A I N I N G
+# ==============================================================================
+
+cardio_research_task:
+  description: >
+    Given a time and location within {time_blocks_with_location}, research exercise for cardio in order to meet
+    general goals {general_goals}.  If the location
+    is home or can be outdoors, research local hikes or parks.  If the location
+    is a gym, assume a rich set of cardio equipment including treadmills, elliptical
+    machines, rowing machines and stationary bicycles.
+  expected_output: >
+    A list of activities that will keep the heart rate in zone 3 or 4 for an
+    extended period of time.
+
+cardio_routine_task:
+  description: >
+    Given a list of potential exercises for cardio, pick one that will most
+    inspire the client to get outside, move their body and keep their heart rate up.
+  expected_output: >
+    Return the cardio exercise in JSON in exactly the format requested.
+    Return JSON in exactly the format requested. JSON  must be constructed with
+    keys and values within double-quotes. Double quotes within strings
+    must be escaped with backslash, single quotes within strings will not be escaped.
+
+    A cardio program for one of the time blocks in the day including the
+    name of the exercise, detailed description of the exercise,
+    time slot, the length of time to be spent exercising and the
+    target heart rate zone.  If the activity is outdoors, it should be no more 
+    than a twenty minute drive from the location.
+
+
+mobility_workout_research_task:
+  description: >
+    Given today's issues of {aches_and_pains}, general fitness goals of
+    {general_goals} and chronic issues {physical_issues}, research mobility
+    exercises suitable to prepare for a workout like:
+    
+    {workout}
+
+  expected_output: >
+    A list of mobility exercises and stretches including name, sets, reps, equipment needed
+    and description of how to do the exercise suitable for pre-workout and
+    A list of mobility exercises and stretches including name, sets, reps, equipment needed
+    and description of how to do the exercise suitable for post-workout
+
+#
+# P H Y S I C A L   T H E R A P Y
+# ==============================================================================
+
+mobility_routine_task:
+  description: >
+    Given lists of mobility exercises and stretches suitable for pre-workout and post-workout,
+    generate a pre-workout and post-workout mobility routine.
+  expected_output: >
+    A list of exercises and stretches for pre-workout, a list of exercises and stretches
+    for post-workout.  Each exercise or stretch should include the name of the
+    exercise, sets, reps, equipment needed, description of how to do the 
+    exercise and a description of what part of the body the exercise supports.
+
+    Return JSON in exactly the format given to you.
+
+nutrition_plan_task:
+  description: >
+    With the goal in mind of {general_goals} and a current weight of {morning_weight},
+    a target weight of {target_weight}
+    as well as meals and diet yesterday consisting of {eating_yesterday} and a
+    current motivational level of {motivation_level},
+
+    suggest a dietary plan for the day.  Focus on calorie restriction geared
+    towards gaining lean muscle mass and achieving the target weight.
+    There don't need to be specific recipes but
+    rather a general strategy for how to eat in the day to maintain a caloric
+    deficit given the exercise regime that the personal trainer will suggest.
+
+  expected_output:
+    Return a general description of how to eat today consisting of a guideline, a caloric
+    target, a protein target and limits for fat and carbs.
+
+    Return JSON in exactly the format requested. JSON  must be constructed with
+    keys and values within double-quotes. Double quotes within strings
+    must be escaped with backslash, single quotes within strings will not be escaped.
+
+
+motivation_task:
+  description: >
+    Given a motivation_level {motivation_level}, yesterdays workout of 
+    {workouts_yesterday}, the general client goals of {general_goals},
+    current issues {aches_and_pains} and chronic issues {physical_issues},
+    as well as the workout:
+    
+    {workout}
+    
+    Generate a motivational message to help the client achieve his goals.
+    
+    Also, given a diet plan 
+    
+    {diet}
+    
+    Generate a motivational message for controlled and healthy eating.
+
+  expected_output: >
+    A motivational message for exercise, and a motivational message for diet.
+    Use exactly the JSON format given.

@@ -1,0 +1,7 @@
+.env
+poetry.lock
+.idea/
+db/
+src/wellness/__pycache__
+src/wellness/db
+
