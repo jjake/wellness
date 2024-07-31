@@ -71,7 +71,15 @@ class WellnessCrew():
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-
+    @agent
+    def code_quality_engineer(self) -> Agent:
+        return Agent(
+            config=self.agents_config['code_quality_engineer'],
+            tools=[],
+            verbose=False,
+            allow_delegation=False,
+            llm=self.llm
+        )
     @agent
     def personal_trainer(self) -> Agent:
         return Agent(
@@ -201,6 +209,12 @@ class WellnessCrew():
              output_json=DietaryGuide
          )
 
+    def format_json_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['format_json_task'],
+            agent=self.code_quality_engineer()
+        )
+
     @crew
     def strength_crew(self) -> Crew:
         """Creates the Strength training crew"""
@@ -208,12 +222,13 @@ class WellnessCrew():
         return Crew(
             agents=[self.personal_trainer()],
             tasks=[self.strength_focus_area_task(),
-                  self.strength_exercise_research_task(),
-                  self.strength_routine_task()],
+                   self.strength_exercise_research_task(),
+                   self.strength_routine_task(),
+                   self.format_json_task()],
             process=Process.sequential,
             planning=True,
             memory=True,
-            verbose=2
+            verbose=False
         )
 
 
@@ -227,7 +242,7 @@ class WellnessCrew():
             process=Process.sequential,
             planning=True,
             memory=True,
-            verbose=2
+            verbose=False
         )
 
 

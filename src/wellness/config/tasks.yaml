@@ -1,3 +1,9 @@
+format_json_task:
+  description:
+    Given a JSON input, produce syntactically correct, idiomatic, human-readable
+    JSON making elegant use of whitespace to maximize human readability.
+  expected_output:
+    well-formatted human readable JSON
 #
 # S T R E N G T H   T R A I N I N G
 # ==============================================================================
@@ -34,8 +40,6 @@ strength_routine_task:
     as whether the workout should be focused on endurance or strength, generate a workout routine
     for time and location {time_blocks_with_location}.
   expected_output: >   
-    Return JSON including:
-     
     - Workout time and location
     - Workout duration
     - Workout time block
@@ -55,7 +59,7 @@ strength_routine_task:
     - thoughts about specific things to focus on for strength and form
     relevant to this particular workout. 
     
-    Return well formatted and pretty printed JSON in exactly the format requested. 
+    Return well formatted and pretty printed multi-line JSON suitable for human reading. 
 
 #
 # C A R D I O   T R A I N I N G

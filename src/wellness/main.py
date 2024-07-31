@@ -28,11 +28,11 @@ ollama_llm = ollama.Ollama(
     base_url = "http://localhost:11434")
 
 inputs = {
- 'time_blocks_with_location': 'home (8 Via San Inigo, Orinda, CA) at 6am-8am and gym at 11:30am-2:30apm',
+ 'time_blocks_with_location': 'gym at 10:00am-12:00pm',
 
   'motivation_level': 'medium',
-  'workouts_yesterday': 'cardio, back and biceps',
-  'eating_yesterday': 'two high fiber chicken quesadillas for lunch, three small high fiber cheese quesadillas for a late dinner',
+  'workouts_yesterday': 'none. It has been very hard to be motivated',
+  'eating_yesterday': 'rice for lunch, salami and 3 eggs for dinner',
   'aches_and_pains': 'none',
   'morning_weight': '175lbs',
   'target_weight': '150lbs',
@@ -40,6 +40,7 @@ inputs = {
   'physical_issues':'old rotor cuff injuries in both shoulders',
   'general_goals': 'Hit a target body weight of 150 and a very healthy BMI. Build lean muscle mass. Increase weight and max PRs.  Try to eat under 1500 calories a day'
 }
+
 
 def run_strength():
 
@@ -168,10 +169,11 @@ workout = """
 }
 """
 inputs_with_workout = inputs
-inputs_with_workout['workout'] = workout
+inputs_with_workout['workout'] = 'horseback riding'
 
 def run_pt():
   result: CrewOutput = WellnessCrew(llm=openai_llm).pt_crew().kickoff(inputs=inputs_with_workout)
+  print(result.raw)
   return result
 
 pt = """
